@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.procurement.frontend.controller.LoginController"
+      alignment="CENTER" spacing="30" prefHeight="768" prefWidth="1024"
+      styleClass="login-bg" stylesheets="@../styles/modern_theme.css">
+      
+    <VBox prefWidth="400" maxWidth="400" spacing="24" styleClass="login-card">
+        <padding>
+            <Insets top="40" right="36" bottom="40" left="36"/>
+        </padding>
+        
+        <VBox alignment="CENTER" spacing="8">
+            <Label text="COLLEGE" styleClass="login-title-small"/>
+            <Label text="ProcureFlow Login" styleClass="login-title"/>
+            <Label text="Sign in to your college staff account" styleClass="login-subtitle"/>
+        </VBox>
+        
+        <VBox spacing="16">
+            <VBox spacing="6">
+                <Label text="Email Address" styleClass="form-label"/>
+                <TextField fx:id="txtEmail" promptText="Enter your staff email" styleClass="form-field"/>
+            </VBox>
+            
+            <VBox spacing="6">
+                <Label text="Password" styleClass="form-label"/>
+                <PasswordField fx:id="txtPassword" promptText="••••••••" styleClass="form-field"/>
+            </VBox>
+        </VBox>
+        
+        <VBox spacing="12" alignment="CENTER">
+            <Button text="Sign In to Dashboard" onAction="#handleLogin" maxWidth="Infinity" styleClass="btn-primary"/>
+            <Button text="🚀 Quick Offline Demo Mode" onAction="#handleOfflineDemo" maxWidth="Infinity" styleClass="btn-secondary"/>
+            <Hyperlink text="⚙️ Configure LAN Server Connection Link" onAction="#handleConfigureConnection" style="-fx-text-fill: #818CF8; -fx-font-size: 12px;"/>
+            <Label fx:id="lblError" text="" styleClass="form-label" style="-fx-text-fill: #EF4444;" wrapText="true"/>
+        </VBox>
+        
+        <VBox alignment="CENTER" spacing="6" styleClass="login-demo-box">
+            <Label text="Demo Accounts Available:" styleClass="login-demo-title"/>
+            <Label text="admin@college.edu (Super Admin)" styleClass="login-demo-text" style="-fx-text-fill: #818CF8;"/>
+            <Label text="director@college.edu (College Director)" styleClass="login-demo-text" style="-fx-text-fill: #60A5FA;"/>
+            <Label text="accountant@college.edu (Chief Accountant)" styleClass="login-demo-text" style="-fx-text-fill: #34D399;"/>
+            <Label text="manager@college.edu (Store Manager)" styleClass="login-demo-text" style="-fx-text-fill: #FBBF24;"/>
+        </VBox>
+    </VBox>
+</VBox>

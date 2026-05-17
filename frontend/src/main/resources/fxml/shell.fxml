@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.procurement.frontend.controller.ShellController"
+            prefHeight="768.0" prefWidth="1024.0" styleClass="main-container"
+            stylesheets="@../styles/modern_theme.css">
+    
+    <left>
+        <VBox prefWidth="240.0" styleClass="sidebar" spacing="10.0">
+            <padding>
+                <Insets top="24" right="16" bottom="24" left="16" />
+            </padding>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="brand-container">
+                <VBox>
+                    <Label text="COLLEGE" styleClass="brand-title-sub"/>
+                    <Label text="ProcureFlow" styleClass="brand-title"/>
+                </VBox>
+            </HBox>
+            
+            <Region VBox.vgrow="ALWAYS" prefHeight="30" />
+            
+            <VBox spacing="8" styleClass="nav-links">
+                <Button fx:id="btnDashboard" text="📊  Dashboard" onAction="#showDashboard" styleClass="nav-btn, active-nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT"/>
+                <Button fx:id="btnRequests" text="📝  Requests" onAction="#showRequests" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT"/>
+                <Button fx:id="btnInventory" text="📦  Inventory" onAction="#showInventory" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT"/>
+                <Button fx:id="btnVendors" text="🤝  Vendors" onAction="#showVendors" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT"/>
+                <Button fx:id="btnFinance" text="💳  Finance" onAction="#showFinance" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT"/>
+                <Button fx:id="btnSettings" text="⚙️  Settings" onAction="#showSettings" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT"/>
+                <Button fx:id="btnSignOut" text="🚪  Sign Out" onAction="#handleSignOut" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT"/>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="sidebar-footer">
+                <Circle radius="18" fill="#E2E8F0" stroke="#CBD5E1"/>
+                <VBox>
+                    <Label fx:id="lblUsername" text="Dr. Sharma" styleClass="user-name"/>
+                    <Label fx:id="lblUserRole" text="Director" styleClass="user-role"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </left>
+    
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <padding>
+                <Insets top="24" right="32" bottom="24" left="32" />
+            </padding>
+        </StackPane>
+    </center>
+    
+</BorderPane>

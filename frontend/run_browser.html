@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProcureFlow - Browser Execution Center</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0B0F19;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 30px;
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(12px);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #818CF8, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-bottom: 24px;
+        }
+
+        .btn-launch {
+            display: inline-block;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #6366F1, #3B82F6);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-launch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        #cheerpjDisplay {
+            margin-top: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .loader {
+            display: none;
+            margin: 20px auto;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #6366F1;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <!-- Include the Free WebAssembly CheerpJ Java VM loader -->
+    <script src="https://cjrtnc.leaningtech.com/3.0/loader.js"></script>
+</head>
+<body>
+
+    <div class="container" id="launchCard">
+        <h1>🌐 ProcureFlow Browser Center</h1>
+        <p>Launch your compiled JavaFX College Procurement client directly inside your web browser via WebAssembly VM.</p>
+        
+        <button class="btn-launch" onclick="launchInBrowser()">Launch Client in Browser</button>
+        <div class="loader" id="loader"></div>
+        <p style="margin-top: 15px; font-size: 11px; color: #6B7280;" id="statusText"></p>
+    </div>
+
+    <!-- The native JavaFX graphics scene displays directly inside this Wasm canvas -->
+    <div id="cheerpjDisplay"></div>
+
+    <script>
+        function launchInBrowser() {
+            document.querySelector('.btn-launch').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('statusText').innerText = "Booting Java WebAssembly Virtual Machine...";
+
+            // Initialize CheerpJ VM and load the compiled fat-jar
+            cheerpjInit({
+                enableDesktopDrawing: true
+            }).then(() => {
+                document.getElementById('statusText').innerText = "JVM Booted. Loading ProcureFlow Client Classes...";
+                
+                // Bind the JavaFX graphics engine to our display container
+                cheerpjCreateDisplay(1024, 768, document.getElementById('cheerpjDisplay'));
+                document.getElementById('cheerpjDisplay').style.display = 'block';
+                document.getElementById('launchCard').style.display = 'none';
+
+                // Run the compiled application JAR file
+                cheerpjRunJar("/app/build/libs/frontend.jar");
+            }).catch(err => {
+                console.error("Browser JVM Error: ", err);
+                document.getElementById('statusText').innerText = "Launch failed. Make sure to run 'gradlew jar' first!";
+                document.querySelector('.btn-launch').style.display = 'inline-block';
+                document.getElementById('loader').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
