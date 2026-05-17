@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fitToWidth="true" styleClass="scroll-container" stylesheets="@../styles/modern_theme.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.procurement.frontend.controller.SettingsController">
+
+    <VBox spacing="20.0">
+        <padding>
+            <Insets top="10" right="10" bottom="20" left="10"/>
+        </padding>
+
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <VBox>
+                <Label text="System Configurations" styleClass="section-title"/>
+                <Label text="Review authorization profiles, configure REST API endpoints, and toggles" styleClass="section-subtitle"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="20">
+            <!-- Profile Settings Card -->
+            <VBox styleClass="section-card" spacing="16" prefWidth="400">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="👤 User Profile Summary" styleClass="ai-title"/>
+                <Separator/>
+
+                <Label text="Full Registered Name" styleClass="form-label"/>
+                <TextField fx:id="txtFullName" editable="false" styleClass="form-field" style="-fx-opacity: 0.8;"/>
+
+                <Label text="Authorized Email Address" styleClass="form-label"/>
+                <TextField fx:id="txtEmail" editable="false" styleClass="form-field" style="-fx-opacity: 0.8;"/>
+
+                <Label text="Assigned Security Role" styleClass="form-label"/>
+                <TextField fx:id="txtRole" editable="false" styleClass="form-field" style="-fx-opacity: 0.8;"/>
+            </VBox>
+
+            <!-- Server Settings Card -->
+            <VBox styleClass="section-card" spacing="16" prefWidth="400" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="⚙️ Connection &amp; Preferences" styleClass="ai-title"/>
+                <Separator/>
+
+                <Label text="REST API Endpoint Base URL" styleClass="form-label"/>
+                <TextField fx:id="txtAPIEndpoint" text="http://localhost:8080" styleClass="form-field"/>
+
+                <Label text="Background Auto-Sync Interval (seconds)" styleClass="form-label"/>
+                <ComboBox fx:id="cmbSyncInterval" maxWidth="Infinity" styleClass="custom-combo"/>
+
+                <CheckBox fx:id="chkNotifications" text="Enable Local Status Toast Alerts" selected="true" style="-fx-text-fill: #E2E8F0; -fx-font-size: 13px;"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+                <HBox alignment="CENTER_RIGHT">
+                    <Button text="💾 Save Preferences" onAction="#handleSaveSettings" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+        </HBox>
+
+        <!-- User Management Card (Admin Only) -->
+        <VBox fx:id="adminUserCard" styleClass="section-card" spacing="16">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="👥 User Profiles &amp; Access Controls (Super Admin)" styleClass="ai-title"/>
+            <Separator/>
+            
+            <HBox spacing="20">
+                <!-- Left: Users Table -->
+                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                    <TableView fx:id="tblUsers" prefHeight="240" styleClass="custom-table">
+                        <columns>
+                            <TableColumn fx:id="colUserName" text="Full Name" prefWidth="180"/>
+                            <TableColumn fx:id="colUserEmail" text="Email" prefWidth="220"/>
+                            <TableColumn fx:id="colUserRole" text="Role" prefWidth="150"/>
+                            <TableColumn fx:id="colUserDept" text="Department" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Button text="❌ Delete Selected User" onAction="#handleDeleteUser" styleClass="btn-secondary" style="-fx-text-fill: #EF4444; -fx-border-color: #EF4444;"/>
+                    </HBox>
+                </VBox>
+                
+                <!-- Right: Create/Edit Form -->
+                <VBox spacing="10" prefWidth="300" styleClass="ai-recommendation-panel" style="-fx-background-color: rgba(255,255,255,0.03);">
+                    <padding>
+                        <Insets top="16" right="16" bottom="16" left="16"/>
+                    </padding>
+                    <Label text="Add / Modify User" styleClass="card-title" style="-fx-font-size: 14px;"/>
+                    <Separator/>
+                    
+                    <Label text="Full Name" styleClass="form-label"/>
+                    <TextField fx:id="txtNewName" promptText="e.g. Prof. Jane Doe" styleClass="form-field"/>
+                    
+                    <Label text="Email Address" styleClass="form-label"/>
+                    <TextField fx:id="txtNewEmail" promptText="e.g. jane@college.edu" styleClass="form-field"/>
+                    
+                    <Label text="Security Role" styleClass="form-label"/>
+                    <ComboBox fx:id="cmbNewRole" promptText="Select Role" maxWidth="Infinity" styleClass="custom-combo"/>
+                    
+                    <Label text="Department" styleClass="form-label"/>
+                    <TextField fx:id="txtNewDept" promptText="e.g. computer_science" styleClass="form-field"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <Button text="Clear" onAction="#handleClearUserForm" styleClass="btn-secondary"/>
+                        <Button text="Save User" onAction="#handleSaveUser" styleClass="btn-primary"/>
+                    </HBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

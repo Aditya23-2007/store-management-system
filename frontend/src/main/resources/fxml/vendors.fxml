@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fitToWidth="true" styleClass="scroll-container" stylesheets="@../styles/modern_theme.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.procurement.frontend.controller.VendorsController">
+
+    <VBox spacing="20.0">
+        <padding>
+            <Insets top="10" right="10" bottom="20" left="10"/>
+        </padding>
+
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <VBox>
+                <Label text="Vendor Registry" styleClass="section-title"/>
+                <Label text="Audit dynamic performance, review quotes, and sign acquire contracts" styleClass="section-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnNewVendor" text="➕  Add New Vendor" onAction="#handleNewVendor" styleClass="btn-primary"/>
+        </HBox>
+
+        <HBox spacing="20" alignment="TOP_LEFT">
+            <!-- Left Side: Table & Search -->
+            <VBox spacing="16" HBox.hgrow="ALWAYS">
+                <!-- Filters / Search -->
+                <HBox spacing="12" alignment="CENTER_LEFT" styleClass="search-bar-container">
+                    <TextField fx:id="txtSearch" promptText="🔍 Search vendors by name or contact..." prefWidth="300" styleClass="search-field"/>
+                </HBox>
+
+                <!-- Vendors Table -->
+                <TableView fx:id="tblVendors" prefHeight="480" styleClass="custom-table" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colName" text="Vendor Name" prefWidth="200"/>
+                        <TableColumn fx:id="colContact" text="Contact No" prefWidth="140"/>
+                        <TableColumn fx:id="colEmail" text="Email Address" prefWidth="180"/>
+                        <TableColumn fx:id="colGST" text="GST Number" prefWidth="150"/>
+                        <TableColumn fx:id="colRating" text="Performance" prefWidth="120"/>
+                        <TableColumn fx:id="colAction" text="Actions" prefWidth="130"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Right Side: Action Form (Add Vendor) -->
+            <VBox fx:id="formPane" prefWidth="300" spacing="16" styleClass="ai-recommendation-panel" visible="false" managed="false">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="Register New Vendor" styleClass="ai-title"/>
+                <Separator/>
+                
+                <Label text="Vendor Name" styleClass="form-label"/>
+                <TextField fx:id="txtVendorName" promptText="e.g. Apex IT Solutions" styleClass="form-field"/>
+
+                <Label text="Contact Number" styleClass="form-label"/>
+                <TextField fx:id="txtContact" promptText="e.g. +91 98765 43210" styleClass="form-field"/>
+
+                <Label text="Email Address" styleClass="form-label"/>
+                <TextField fx:id="txtEmail" promptText="e.g. billing@apex.com" styleClass="form-field"/>
+
+                <Label text="GST Registration No" styleClass="form-label"/>
+                <TextField fx:id="txtGST" promptText="e.g. 07AAAAA1111A1Z1" styleClass="form-field"/>
+
+                <Label text="Quality Rating (1.0 to 5.0)" styleClass="form-label"/>
+                <TextField fx:id="txtRating" promptText="e.g. 4.8" styleClass="form-field"/>
+
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="Cancel" onAction="#handleCancelForm" styleClass="btn-secondary"/>
+                    <Button text="Register" onAction="#handleSubmitForm" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

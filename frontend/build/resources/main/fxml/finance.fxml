@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fitToWidth="true" styleClass="scroll-container" stylesheets="@../styles/modern_theme.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.procurement.frontend.controller.FinanceController">
+
+    <VBox spacing="20.0">
+        <padding>
+            <Insets top="10" right="10" bottom="20" left="10"/>
+        </padding>
+
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <VBox>
+                <Label text="Financial Control &amp; Ledger" styleClass="section-title"/>
+                <Label text="Audit department allocations, track capital flows, and top-up operational funds" styleClass="section-subtitle"/>
+            </VBox>
+        </HBox>
+
+        <!-- Budget Cards -->
+        <GridPane hgap="16" vgap="16">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.3"/>
+                <ColumnConstraints percentWidth="33.4"/>
+            </columnConstraints>
+            
+            <VBox styleClass="stat-card" GridPane.columnIndex="0">
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+                <Label text="Total College Allocation" styleClass="card-title"/>
+                <Label fx:id="lblTotalBudget" text="Pending..." styleClass="card-value" style="-fx-text-fill: #3B82F6;"/>
+            </VBox>
+
+            <VBox styleClass="stat-card" GridPane.columnIndex="1">
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+                <Label text="Total Disbursed &amp; Spent" styleClass="card-title"/>
+                <Label fx:id="lblTotalSpent" text="Pending..." styleClass="card-value" style="-fx-text-fill: #EF4444;"/>
+            </VBox>
+
+            <VBox styleClass="stat-card" GridPane.columnIndex="2">
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+                <Label text="Remaining Balance" styleClass="card-title"/>
+                <Label fx:id="lblTotalRemaining" text="Pending..." styleClass="card-value" style="-fx-text-fill: #10B981;"/>
+            </VBox>
+        </GridPane>
+
+        <HBox spacing="20">
+            <!-- Left Panel: Table of Departments -->
+            <VBox spacing="16" HBox.hgrow="ALWAYS">
+                <VBox styleClass="section-card" spacing="12">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <Label text="Departmental Budget Ledgers" styleClass="section-title"/>
+                    <TableView fx:id="tblBudgets" prefHeight="300" styleClass="custom-table">
+                        <columns>
+                            <TableColumn fx:id="colDeptName" text="Department" prefWidth="180"/>
+                            <TableColumn fx:id="colAllocated" text="Allocated Budget" prefWidth="130"/>
+                            <TableColumn fx:id="colSpent" text="Spent Budget" prefWidth="120"/>
+                            <TableColumn fx:id="colRemaining" text="Remaining" prefWidth="120"/>
+                            <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                            <TableColumn fx:id="colAction" text="Actions" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+
+            <!-- Right Panel: Visual Expenditure Breakdown Chart -->
+            <VBox prefWidth="360" spacing="16">
+                <VBox styleClass="section-card" spacing="12">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <Label text="Budget Distribution Chart" styleClass="section-title"/>
+                    <PieChart fx:id="budgetPieChart" prefHeight="290"/>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

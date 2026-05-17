@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fitToWidth="true" styleClass="scroll-container" stylesheets="@../styles/modern_theme.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.procurement.frontend.controller.RequestsController">
+
+    <VBox spacing="20.0">
+        <padding>
+            <Insets top="10" right="10" bottom="20" left="10"/>
+        </padding>
+
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <VBox>
+                <Label text="Procurement Requests" styleClass="section-title"/>
+                <Label text="Submit, authorize, and audit organizational acquisitions" styleClass="section-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnNewRequest" text="➕  New Request" onAction="#handleNewRequest" styleClass="btn-primary"/>
+        </HBox>
+
+        <HBox spacing="20" alignment="TOP_LEFT">
+            <!-- Left Side: Table & Search -->
+            <VBox spacing="16" HBox.hgrow="ALWAYS">
+                <!-- Filters / Search -->
+                <HBox spacing="12" alignment="CENTER_LEFT" styleClass="search-bar-container">
+                    <TextField fx:id="txtSearch" promptText="🔍 Search items or requesters..." prefWidth="250" styleClass="search-field"/>
+                    <ComboBox fx:id="cmbStatusFilter" promptText="Filter Status" prefWidth="150" styleClass="custom-combo"/>
+                    <ComboBox fx:id="cmbUrgencyFilter" promptText="Filter Urgency" prefWidth="150" styleClass="custom-combo"/>
+                </HBox>
+
+                <!-- Requests Table -->
+                <TableView fx:id="tblRequests" prefHeight="480" styleClass="custom-table" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colItemName" text="Item Name" prefWidth="180"/>
+                        <TableColumn fx:id="colCategory" text="Category" prefWidth="110"/>
+                        <TableColumn fx:id="colRequester" text="Requester" prefWidth="140"/>
+                        <TableColumn fx:id="colQuantity" text="Qty" prefWidth="60"/>
+                        <TableColumn fx:id="colEstCost" text="Est. Cost" prefWidth="100"/>
+                        <TableColumn fx:id="colUrgency" text="Urgency" prefWidth="90"/>
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="140"/>
+                        <TableColumn fx:id="colAction" text="Actions" prefWidth="130"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Right Side: Action Form (Submit / View Details) -->
+            <VBox fx:id="formPane" prefWidth="300" spacing="16" styleClass="ai-recommendation-panel" visible="false" managed="false">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label fx:id="lblFormTitle" text="Create Procurement Request" styleClass="ai-title"/>
+                <Separator/>
+                
+                <Label text="Item Name" styleClass="form-label"/>
+                <TextField fx:id="txtItemName" promptText="e.g. Projector Bulbs" styleClass="form-field"/>
+
+                <Label text="Category" styleClass="form-label"/>
+                <ComboBox fx:id="cmbCategory" promptText="Select Category" maxWidth="Infinity" styleClass="custom-combo"/>
+
+                <Label text="Quantity" styleClass="form-label"/>
+                <TextField fx:id="txtQuantity" promptText="e.g. 5" styleClass="form-field"/>
+
+                <Label text="Estimated Cost ($)" styleClass="form-label"/>
+                <TextField fx:id="txtEstCost" promptText="e.g. 250.00" styleClass="form-field"/>
+
+                <Label text="Urgency Level" styleClass="form-label"/>
+                <ComboBox fx:id="cmbUrgency" promptText="Select Urgency" maxWidth="Infinity" styleClass="custom-combo"/>
+
+                <Label text="Purpose / Justification" styleClass="form-label"/>
+                <TextArea fx:id="txtPurpose" promptText="Why is this required?" prefHeight="80" wrapText="true" styleClass="form-area"/>
+
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="Cancel" onAction="#handleCancelForm" styleClass="btn-secondary"/>
+                    <Button text="Submit" onAction="#handleSubmitForm" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>
